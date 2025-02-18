@@ -11,4 +11,5 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     Optional<Student> findByUsername(String username);
     List<Student> findAll();
     List<Student> findAllByOrderBySubmissionTimeAsc();
+    boolean existsByUsername(String username);
 }

@@ -29,16 +29,18 @@ public class AdminController {
 
     //--------------------------- CRUD FOR STUDENTS-------------------------------------------------------------
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("/Create-Student")
     public ResponseEntity<?> createStudent(@RequestBody StudentDTO student,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {
+
+
             adminService.CreateStudent(student);
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body("Student Created Successfully!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Unable to create student");
+                    .body("Unable to create student"+e.getMessage());
         }
 
     }

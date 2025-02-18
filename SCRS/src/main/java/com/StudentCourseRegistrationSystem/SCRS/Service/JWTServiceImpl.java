@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JWTServiceImpl {
+public class JWTServiceImpl implements JWTService{
 
     private String secretekey="";
 
@@ -26,11 +26,13 @@ public class JWTServiceImpl {
             KeyGenerator keygen = KeyGenerator.getInstance("HmacSHA256");
             SecretKey sk = keygen.generateKey();
             secretekey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
+        }
+        catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
     public String generateToken(String Username) {
         Map<String,Object> claims =new HashMap<>();
         return Jwts.builder()
@@ -45,12 +47,14 @@ public class JWTServiceImpl {
 
     }
 
-    private SecretKey getKey() {
+    @Override
+    public SecretKey getKey() {
         byte[] keyBytes= Decoders.BASE64.decode(secretekey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
 
+    @Override
     public String extractUserName(String token) {
 
         return extractClaim(token, Claims::getSubject);
@@ -69,6 +73,7 @@ public class JWTServiceImpl {
                 .getPayload();
     }
 
+    @Override
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));

@@ -21,6 +21,9 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter jwtFilter;
 
+    @Autowired
+    private JwtAuthenticationEntryPoint point;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -33,12 +36,11 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
 
         );
-
-        http.httpBasic(Customizer.withDefaults());
+        http.exceptionHandling(ex-> ex.authenticationEntryPoint(point));
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
-       // http.formLogin(form -> form.disable());
+
 
 
 

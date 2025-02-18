@@ -161,6 +161,11 @@ public class AdminServiceImpl implements UserDetailsService,AdminService{
     @Override
     public void CreateStudent(StudentDTO student) {
 
+
+        // Check if the username already exists
+        if (studentRepository.existsByUsername(student.getUsername())) {
+            throw new IllegalArgumentException("Username already exists! Please choose a different username.");
+        }
         Student student1=new Student();
         student1.setName(student.getName());
         student1.setUsername(student.getUsername());
