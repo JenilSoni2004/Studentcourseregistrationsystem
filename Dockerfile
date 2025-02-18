@@ -2,7 +2,7 @@
 FROM maven:amazoncorretto-21-alpine AS build
 
 # Copy all files to the container
-COPY . .
+COPY SCRS .
 
 # Run the Maven clean and package command (skipping tests for now)
 RUN mvn clean package -DskipTests
