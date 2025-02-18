@@ -22,5 +22,5 @@ COPY --from=build /app/target/STUDENTCURSEREGISTRATIONSYSTEM-0.0.1-SNAPSHOT.jar 
 # Expose port 8080 (this is the port your application will run on)
 EXPOSE 8080
 
-# Run the application
+
 ENTRYPOINT ["java", "-jar", "/app/STUDENTCURSEREGISTRATIONSYSTEM.jar"]
