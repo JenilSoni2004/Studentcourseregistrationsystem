@@ -16,11 +16,11 @@ FROM openjdk:21-jdk-slim
 # Set the working directory for the runtime container
 WORKDIR /app
 
-# Copy the built jar from the build stage to the runtime image
-COPY --from=build /app/target/STUDENTCURSEREGISTRATIONSYSTEM-0.0.1-SNAPSHOT.jar /app/STUDENTCURSEREGISTRATIONSYSTEM.jar
+# Copy the built JAR from the build stage to the runtime image
+COPY --from=build /app/target/STUDENTCOURSEREGISTRATIONSYSTEM-0.0.1-SNAPSHOT.jar /app/STUDENTCOURSEREGISTRATIONSYSTEM.jar
 
-# Expose port 5053 (or change if your app runs on a different port)
+# Expose port 5053 (or update to match your app's configuration)
 EXPOSE 5053
 
 # Run the application with the correct path
-ENTRYPOINT ["java", "-jar", "/app/STUDENTCURSEREGISTRATIONSYSTEM.jar"]
+ENTRYPOINT ["java", "-jar", "/app/STUDENTCOURSEREGISTRATIONSYSTEM.jar"]
