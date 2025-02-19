@@ -1,12 +1,12 @@
 # Step 1: Build stage using Maven with Amazon Corretto (JDK 21)
-FROM maven:3.9.9-amazoncorretto-17-al2023 AS builder
+FROM maven:3.9.9-amazoncorretto-21-alpine AS builder
 #hd
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
 RUN mvn clean package -DskipTests
-FROM openjdk:24-slim-bullseye
+FROM alpine/java:21-jdk
 
 WORKDIR /app
 
