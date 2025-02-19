@@ -3,12 +3,12 @@ FROM maven:3.9.9-amazoncorretto-21-alpine AS builder
 #hd
 WORKDIR /app
 COPY pom.xml .
-COPY src ./src
+COPY src ./app
 
 RUN mvn clean package -DskipTests
 FROM alpine/java:21-jdk
 
-WORKDIR /app
+WORKDIR /src
 
 COPY --from=builder /app/target/SCRS-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 5053
