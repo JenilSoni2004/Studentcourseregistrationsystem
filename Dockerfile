@@ -5,8 +5,8 @@ FROM maven:3.9.9-amazoncorretto-21-alpine AS builder
 WORKDIR /app
 
 # Copy the necessary files
-COPY pom.xml .
-COPY src ./src
+COPY ./pom.xml .
+COPY ./src ./src
 
 # Run Maven build (excluding tests for faster build)
 RUN mvn clean package -DskipTests
