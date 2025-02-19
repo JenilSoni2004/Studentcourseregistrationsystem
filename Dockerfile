@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the necessary files
 COPY pom.xml .
-COPY src/ src/
+COPY src src/
 
 # Run Maven build (excluding tests for faster build)
 RUN mvn clean package -DskipTests
