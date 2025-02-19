@@ -6,13 +6,13 @@ WORKDIR /app
 
 # Copy the necessary files
 COPY pom.xml .
-COPY src src/
+COPY ./SCRS/src ./src
 
 # Run Maven build (excluding tests for faster build)
 RUN mvn clean package -DskipTests
 
 # Step 2: Create a minimal runtime image with Amazon Corretto JDK 21
-FROM amazoncorretto:21-alpine
+FROM alphine/java:21-jdk
 
 WORKDIR /app
 
