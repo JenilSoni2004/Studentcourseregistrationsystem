@@ -6,7 +6,7 @@ COPY pom.xml .
 COPY src ./src
 
 RUN mvn clean package -DskipTests
-FROM alpine/java:21-jdk
+FROM openjdk:24-slim-bullseye
 
 WORKDIR /app
 
