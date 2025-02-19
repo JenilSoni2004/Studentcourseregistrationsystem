@@ -51,13 +51,24 @@ public class AdminServiceImpl implements UserDetailsService,AdminService{
     private static final PasswordEncoder passwordencoder =new BCryptPasswordEncoder();
 
 
+    @Value("${admin.username}")
+    private String adminUsername;
+
+    @Value("${admin.password}")
+    private String adminPassword;
+
+
+
     @PostConstruct
     public void initAdminUser() {
         System.out.println("Initializing admin user...");
-        if (adminRepository.findByUsername("admin") == null) {
+        System.out.println("Admin Username: " + adminUsername);
+        System.out.println("Admin Password: " + adminPassword);
+
+        if (adminRepository.findByUsername(adminUsername).isEmpty()) {
             Admin admin = new Admin();
-            admin.setUsername("admin");
-            admin.setPassword(passwordencoder.encode("admin123"));
+            admin.setUsername(adminUsername);
+            admin.setPassword(passwordencoder.encode(adminPassword));
             adminRepository.save(admin);
             System.out.println("Admin user created.");
         } else {
