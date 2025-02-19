@@ -1,5 +1,6 @@
 # Step 1: Build stage using Maven with Amazon Corretto (JDK 21)
-FROM maven:amazoncorretto-21-alpine  AS build
+FROM maven:3.9.6-amazoncorretto-21 AS build
+
 
 # Copy all files to the container
 COPY . .
