@@ -12,12 +12,12 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Step 2: Create a minimal runtime image with JDK 21
-FROM eclipse-temurin:21-jdk-alpine
+FROM alpine/java:21-jdk
 
 WORKDIR /app
 
 # Copy the built JAR file from the builder stage
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/SCRS-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose application port
 EXPOSE 5053
