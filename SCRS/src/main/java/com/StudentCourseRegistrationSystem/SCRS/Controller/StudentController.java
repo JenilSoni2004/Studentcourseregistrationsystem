@@ -36,6 +36,7 @@ public class StudentController {
     private ProfessorRepository professorRepository;
     @Autowired
     private FeedBackRepository feedbackRepository;
+
     @PutMapping("/Update-student/{id}")
     public ResponseEntity<?> updateStudent(@PathVariable Long id, @RequestBody StudentDTO studentDTO,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {

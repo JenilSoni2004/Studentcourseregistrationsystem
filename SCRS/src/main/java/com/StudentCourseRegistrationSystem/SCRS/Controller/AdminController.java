@@ -31,7 +31,7 @@ public class AdminController {
 
 
     @PostMapping("/Create-Student")
-    public ResponseEntity<?> createStudent(@RequestBody StudentDTO student,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> createStudent(@RequestBody StudentDTO student) {
         try {
 
 
@@ -46,7 +46,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/Delete-student/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long id,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
         boolean isDeleted = adminService.deletestudentbyid(id);
 
         if (isDeleted) {
@@ -65,7 +65,7 @@ public class AdminController {
 
 
     @PostMapping("/Create-Professor")
-    public ResponseEntity<?> createProfessor(@RequestBody Professor professor,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> createProfessor(@RequestBody Professor professor) {
         try {
             adminService.CreateProfessor(professor);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -77,7 +77,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/Delete-professor/{id}")
-    public ResponseEntity<?> deleteProfessor(@PathVariable Long id,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> deleteProfessor(@PathVariable Long id) {
         boolean isDeleted = adminService.deleteProfessorById(id);
 
         if (isDeleted) {
@@ -92,10 +92,10 @@ public class AdminController {
 
     //---------------------CRUD FOR PROFESSOR ENDED--------------------------------------
 
-    @PreAuthorize("hasRole('ADMIN')")
+
     @PostMapping("/create-course")
-    public ResponseEntity<?> createCourse(@RequestBody CourseDTO courseDTO, @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        System.out.println("Received Token: " + token); // Debugging
+    public ResponseEntity<?> createCourse(@RequestBody CourseDTO courseDTO) {
+
 
         try {
             Course createdCourse = adminService.createCourse(courseDTO);
@@ -112,7 +112,7 @@ public class AdminController {
 
     @PostMapping("/create-semester")
 
-    public ResponseEntity<?> createsemester(@RequestBody Semester semester,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> createsemester(@RequestBody Semester semester) {
         try {
             adminService.CreateSemester(semester);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -124,7 +124,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/Delete-semester/{id}")
-    public ResponseEntity<?> deleteSemester(@PathVariable Long id,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> deleteSemester(@PathVariable Long id) {
         boolean isDeleted = adminService.deleteSemesterById(id);
 
         if (isDeleted) {
@@ -137,7 +137,7 @@ public class AdminController {
     }
 
     @GetMapping("/Find-semester-by-id/{id}")
-    public ResponseEntity<?> findSemesterById(@PathVariable Long id,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<?> findSemesterById(@PathVariable Long id) {
         Optional<Semester> semester = adminService.Findsemesterbyid(id);
 
         if (semester.isPresent()) {
@@ -150,31 +150,31 @@ public class AdminController {
 
 
     @PostMapping("/Allocate-Course")
-    public ResponseEntity<String> allocateCourses(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<String> allocateCourses() {
         adminService.allocate();
         return ResponseEntity.ok("Course allocation completed successfully!");
     }
 
     @PostMapping("/send-course-registration")
-    public ResponseEntity<String> sendPredefinedCourseEmail(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<String> sendPredefinedCourseEmail() {
         adminService.sendCourseRegistrationEmailToAll();
         return ResponseEntity.ok("Predefined course registration email sent to all students!");
     }
 
     @PostMapping("/Announcement")
-    public ResponseEntity<String> sendEmails(@RequestParam String subject, @RequestParam String message,@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<String> sendEmails(@RequestParam String subject, @RequestParam String message) {
         adminService.sendEmailToAllStudents(subject, message);
         return ResponseEntity.ok("Emails sent to all students!");
     }
 
     @GetMapping("/send-course-Allocation-Mail")
-    public ResponseEntity<String> sendEmails(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<String> sendEmails() {
         adminService.sendCourseAllocationEmails();
         return ResponseEntity.ok("Emails sent to all allocated students!");
     }
 
     @PostMapping("/send-Feedback-mails")
-    public ResponseEntity<String> sendFeedbackEmails(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<String> sendFeedbackEmails() {
         try {
             feedBackService.sendFeedbackRequestEmails();
             return ResponseEntity.ok("Feedback emails sent successfully!");
