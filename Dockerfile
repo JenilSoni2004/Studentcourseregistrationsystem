@@ -5,7 +5,7 @@ FROM maven:3.9.9-amazoncorretto-21-alpine AS builder
 WORKDIR /app
 
 # Copy the necessary files
-COPY ./SRCS/pom.xml .
+COPY .SCRS/SRCS/pom.xml .
 COPY ./SCRS/src ./src
 
 # Run Maven build (excluding tests for faster build)
