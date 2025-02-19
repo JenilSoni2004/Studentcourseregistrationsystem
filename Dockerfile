@@ -12,7 +12,8 @@ COPY ./SCRS/src ./src
 RUN mvn clean package -DskipTests
 
 # Step 2: Create a minimal runtime image with Amazon Corretto JDK 21
-FROM alphine/java:21-jdk
+FROM amazoncorretto:21-alpine
+
 
 WORKDIR /app
 
