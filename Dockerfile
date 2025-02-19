@@ -1,8 +1,5 @@
 # Step 1: Build stage using Maven with Amazon Corretto (JDK 21)
-FROM maven:3.9.6-eclipse-temurin-21 AS build
-
-# Set the working directory
-WORKDIR /app
+FROM maven:amazoncorretto-21-alpine  AS build
 
 # Copy all files to the container
 COPY . .
@@ -11,10 +8,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Step 2: Create the runtime image using a slim OpenJDK image
-FROM openjdk:21-jdk-slim
-
-# Set the working directory for the runtime container
-WORKDIR /app
+FROM alpine/java:21-jdk
 
 # Copy the built JAR from the build stage to the runtime image
 COPY --from=build /app/target/STUDENTCOURSEREGISTRATIONSYSTEM-0.0.1-SNAPSHOT.jar /app/STUDENTCOURSEREGISTRATIONSYSTEM.jar
